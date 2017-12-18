@@ -20,7 +20,7 @@ node {
         stage ('Clone') {
             checkout scm
 			
-			git url: 'https://github.com/TTFHW/jenkins_pipeline_java_maven.git'
+			git url: 'https://github.com/subrata-mettle/jenkins_pipeline_java_maven-master.git'
         }
         stage ('preparations') {
             try {
