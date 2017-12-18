@@ -19,7 +19,7 @@ node {
     try {
 	   
         stage ('Clone') {
-		    sh "gil pull https://github.com/subrata-mettle/dev-175.git"
+		    sh "git pull https://github.com/subrata-mettle/dev-175.git"
             
 			checkout scm
 			
