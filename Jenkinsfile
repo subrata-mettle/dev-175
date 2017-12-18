@@ -19,11 +19,7 @@ node {
     try {
 	   
         stage ('Clone') {
-		
-			
-			
-			git url: 'https://github.com/subrata-mettle/dev-175.git'
-			
+				
 			checkout scm
 			
 			git url: 'https://github.com/subrata-mettle/jenkins_pipeline_java_maven-master.git'
