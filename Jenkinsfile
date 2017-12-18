@@ -17,8 +17,10 @@ node {
     properties(propertiesData)
 
     try {
+	    stage 'Checkout'
+   		git url: 'https://github.com/subrata-mettle/dev-175.git'
+		
         stage ('Clone') {
-            checkout scm
 			
 			git url: 'https://github.com/TTFHW/jenkins_pipeline_java_maven.git'
         }
