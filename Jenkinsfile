@@ -25,17 +25,20 @@ node {
         stage ('preparations') {
             try {
                 def deploySettings = getDeploySettings()
-                sh './preparations.sh'
+                echo 'Deploy settings were set'
+				echo "Branch Details Type ${branchDetails.type} and Version ${branchDetails.version}"
+				echo "Deploy settings is ${deploySettings} ${mvnHome}"
             } catch(err) {
                 println(err.getMessage());
                 throw err
             }
         }
         stage('Build') {
-            sh "./Build.sh"
+            sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package"
         }
 		stage('Results') {
-		    ah "./Results.sh"
+		    junit '**/target/surefire-reports/TEST-*.xml'
+			archive 'target/*.jar'
 	   }
         stage ('Tests') {                
             parallel 'static': {
