@@ -17,6 +17,9 @@ node {
     properties(propertiesData)
 
     try {
+	   stage 'Checkout'
+   		git url: 'https://github.com/subrata-mettle/dev-175.git'
+	
         stage ('Clone') {
             checkout scm
 			
@@ -25,20 +28,17 @@ node {
         stage ('preparations') {
             try {
                 def deploySettings = getDeploySettings()
-                echo 'Deploy settings were set'
-				echo "Branch Details Type ${branchDetails.type} and Version ${branchDetails.version}"
-				echo "Deploy settings is ${deploySettings} ${mvnHome}"
+                sh './preparations.sh'
             } catch(err) {
                 println(err.getMessage());
                 throw err
             }
         }
         stage('Build') {
-            sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package"
+            sh "./Build.sh"
         }
 		stage('Results') {
-		    junit '**/target/surefire-reports/TEST-*.xml'
-			archive 'target/*.jar'
+		    sh "./Results.sh"
 	   }
         stage ('Tests') {                
             parallel 'static': {
